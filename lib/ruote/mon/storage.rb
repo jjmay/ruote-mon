@@ -197,6 +197,10 @@ module Mon
 
       cursor.to_a.collect { |wi| Ruote::Workitem.new(wi) }
     end
+    
+    def find_workitems(cr)
+      collection('workitems').find(cr)
+    end
 
     def ids(type)
 
