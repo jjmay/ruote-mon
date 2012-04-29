@@ -177,7 +177,7 @@ module Mon
     
     def query_workitems(cr)
       opts = {}
-      fetch_all(opts)
+      collection('workitems').find(cr)
     end
 
     def ids(type)
