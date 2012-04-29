@@ -195,7 +195,7 @@ module Mon
       cursor.skip(opts['skip'])
       cursor.limit(opts['limit'])
 
-      cursor.to_a
+      cursor.to_a.collect { |wi| Ruote::Workitem.new(wi) }
     end
 
     def ids(type)
