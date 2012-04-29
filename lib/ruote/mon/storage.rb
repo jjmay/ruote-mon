@@ -174,6 +174,11 @@ module Mon
 
       cursor.to_a
     end
+    
+    def query_workitems(cr)
+      opts = {}
+      fetch_all(opts)
+    end
 
     def ids(type)
 
