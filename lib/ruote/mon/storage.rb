@@ -177,7 +177,25 @@ module Mon
     
     def query_workitems(cr)
       opts = {}
-      collection('workitems').find(cr)
+      opts[:skip] = cr.delete('offset') || cr.delete('skip')
+      opts[:limit] = cr.delete('limit')
+      opts[:count] = cr.delete('count')
+
+      wfid = cr.delete('wfid')
+
+      count = opts[:count]
+      
+      cursor = collection('workitems').find(cr)
+      
+      return cursor.count if opts['count']
+
+      cursor.sort(
+        '_id', opts['descending'] ? Mongo::DESCENDING : Mongo::ASCENDING)
+
+      cursor.skip(opts['skip'])
+      cursor.limit(opts['limit'])
+
+      cursor.to_a
     end
 
     def ids(type)
