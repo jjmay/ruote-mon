@@ -195,7 +195,7 @@ module Mon
       cursor.skip(opts['skip'])
       cursor.limit(opts['limit'])
 
-      cursor.to_a.collect { |wi| Ruote::Workitem.new(wi) }
+      cursor
     end
     
     def find_workitems(cr)
@@ -203,7 +203,7 @@ module Mon
     end
     
     def query_workitems(cr)
-      query_collection('workitems', cr)
+      query_collection('workitems', cr).to_a.collect { |wi| Ruote::Workitem.new(wi) }
     end
     
     def query_history(cr)
