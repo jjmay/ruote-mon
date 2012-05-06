@@ -175,7 +175,7 @@ module Mon
       cursor.to_a
     end
     
-    def query_workitems(cr)
+    def query_collection(collection, cr)
       opts = {}
       opts[:skip] = cr.delete('offset') || cr.delete('skip')
       opts[:limit] = cr.delete('limit')
@@ -185,7 +185,7 @@ module Mon
 
       count = opts[:count]
       
-      cursor = collection('workitems').find(cr)
+      cursor = collection(collection).find(cr)
       
       return cursor.count if opts['count']
 
@@ -200,6 +200,14 @@ module Mon
     
     def find_workitems(cr)
       collection('workitems').find(cr)
+    end
+    
+    def query_workitems(cr)
+      query_collection('workitems', cr)
+    end
+    
+    def query_history(cr)
+      query_collection('history', cr)
     end
 
     def ids(type)
